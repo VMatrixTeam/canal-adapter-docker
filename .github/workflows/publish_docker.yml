@@ -1,0 +1,23 @@
+name: Publish Docker
+on: 
+  push:
+    branches:
+      - master
+      - dev
+  schedule:
+    - cron: '0 2 * * 0' # Weekly on Sundays at 02:00
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Publish to Registry
+      uses: elgohr/Publish-Docker-Github-Action@master
+      env:
+        ELASTICSEARCH_VERSION: 7.6.2
+      with:
+        name: ${{ secrets.DOCKERHUB_IMAGENAME }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        cache: ${{ github.event_name != 'schedule' }}
+        buildargs: ELASTICSEARCH_VERSION
