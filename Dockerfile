@@ -4,4 +4,5 @@ RUN mkdir -p /opt/adapter && tar x -z -C /opt/adapter -f /tmp/adapter.tar.gz && 
 FROM openjdk:8-jre-alpine
 WORKDIR /opt/adapter
 COPY --from=extract /opt/adapter /opt/adapter
+RUN apk update && apk add --no-cache file
 ENTRYPOINT [ "sh", "/opt/adapter/bin/startup.sh" ]
