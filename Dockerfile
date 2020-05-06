@@ -5,4 +5,4 @@ FROM openjdk:8-jre-alpine
 WORKDIR /opt/adapter
 COPY --from=extract /opt/adapter /opt/adapter
 RUN apk update && apk add --no-cache file
-ENTRYPOINT [ "sh", "/opt/adapter/bin/startup.sh" ]
+CMD [ "sh", "-c", "sh -c /opt/adapter/bin/startup.sh && tail -F /opt/adapter/logs/adapter/adapter.log" ]
