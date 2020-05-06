@@ -6,4 +6,4 @@ WORKDIR /opt/adapter
 COPY --from=extract /opt/adapter /opt/adapter
 RUN rm -rf /opt/adapter/conf/es/*
 RUN apk update && apk add --no-cache file
-CMD [ "sh", "-c", "sh -c /opt/adapter/bin/startup.sh && tail -F /opt/adapter/logs/adapter/adapter.log" ]
+CMD [ "sh", "-c", "sh /opt/adapter/bin/startup.sh && tail -F /opt/adapter/logs/adapter/adapter.log" ]
